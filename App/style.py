@@ -4,6 +4,7 @@ class Dark():
     
     def __init__(self):
         self.master_bg = "#2d2d2d"
+        self.frame_bg = "#2d2d2d"
 
         self.ENTRADA = {
             'bg': "#2d2d2d",
