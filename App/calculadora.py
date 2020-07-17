@@ -1,27 +1,33 @@
 import tkinter as tk
+import App.style as style
 
 class Calculadora:
     """
         Classe para modelagem de calculadora, layout, distribuição de botões
         e funcionalidades!
-
-        1 | 2 | 3 | C
-        4 | 5 | 6 | +
-        7 | 8 | 9 | -
-        / | * | ^ | =
-        |          |
+            
+            |          |
+            1 | 2 | 3 | C
+            4 | 5 | 6 | +
+            7 | 8 | 9 | -
+            0 | / | * | =
+            
     """
-    _bts = ['1','2','3','C','4','5','6','+','7','8','9','-','/','*','^','=']
+    _bts = ['1','2','3','C',
+            '4','5','6','+',
+            '7','8','9','-',
+            '0','/','*','=']
     
     def __init__(self,master):
+        self.style = style.Dark()
         self.master = master
         self.master.title("Calculadora")
         self.master.geometry("300x450")
         self.master.maxsize(width=300,height=450)
         self.master.minsize(width=300,height=450)
-        self.master.configure(background="#696969")
-        self._dados = tk.Entry(master,width=50,justify="left")
-        self._dados.grid(row=5,column=0,columnspan=4)
+        self.master.configure(background=self.style.master_bg)
+        self._dados = tk.Entry(master,cnf=self.style.ENTRADA)
+        self._dados.grid(row=0,column=0,columnspan=4)
         
         
         """
@@ -31,11 +37,11 @@ class Calculadora:
         self._criar_bts(self.master)
 
     def _criar_bts(self,master):
-        r = 0
+        r = 1
         c = 0
         for bt in Calculadora._bts:
             comando = lambda x=bt: self._calcular(x)
-            self.buttons = tk.Button(master,width=10,height=5,text=bt,bg="#C0C0C0",bd=0,activebackground="#DCDCDC",command=comando)
+            self.buttons = tk.Button(master,cnf=self.style.BOTOES,text=bt,command=comando)
             self.buttons.grid(row=r,column=c)
             c += 1
             if c > 3:
@@ -61,7 +67,7 @@ class Calculadora:
                 
                 
         elif botao == "C":
-            self._dados.delete(0)
+            self._dados.delete(0,last)
         else:
             self._dados.insert(last,botao)
             
